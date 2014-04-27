@@ -2,9 +2,9 @@
 class windows { 
 
   file {'foo': 
-    path => 'blah/de/dah',
-    content => 'hi there',
-    ensure => present
+    path    => 'C:\foo.txt',
+    content => 'foo contains bar!',
+    ensure  => present
   }
 
 }
