@@ -42,3 +42,14 @@ this project is a simple project to demonstrate the issue.   try it.
     /opt/boxen/rbenv/versions/1.9.3-p484/bin/ruby -S rspec spec/classes/windows_spec.rb --colour -f d fai
     led
 
+# a mitigation
+
+Add this bit of code to your tests and the fully qualified path validation will use Windows rules instead
+of the host OS. You've also got to disable autosign, because by default it's set to the path to `autosign.conf`
+that's proper for the host platform--which is a Linux path, not a Windows path.
+
+    # fake out the file checks so that they validate as absolute even though they're Windows paths
+    before :each do
+      Puppet[:autosign] = false
+      Puppet::Util::Platform.stubs(:windows?).returns true
+    end
